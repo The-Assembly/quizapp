@@ -2,11 +2,14 @@
 ## PART 0 - Installing dependencies 
 
 **WINDOWS USER:** <br/>
-a. Open an Administrator Command Prompt (right click Command Prompt and select "Run as Administrator"), then run the following command: <br/>
+
+a. install<a href="https://chocolatey.org/install"> chocolatey. <a/> <br/>
+ 
+b. Open an Administrator Command Prompt (right click Command Prompt and select "Run as Administrator"), then run the following command: <br/>
 
 ```choco install -y nodejs.install python2 jdk8``` 
 
-b. Install the React Native command line interface: <br/>
+c. Install the React Native command line interface: <br/>
 
 ```npm install -g react-native-cli```
 
