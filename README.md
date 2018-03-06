@@ -3,7 +3,7 @@
 
 **WINDOWS USER:** <br/>
 
-a. install<a href="https://chocolatey.org/install"> chocolatey. <a/> <br/>
+a. Install<a href="https://chocolatey.org/install"> chocolatey. <a/> <br/>
  
 b. Open an Administrator Command Prompt (right click Command Prompt and select "Run as Administrator"), then run the following command: <br/>
 
