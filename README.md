@@ -52,7 +52,7 @@ Install the Expo client app on your iOS or Android phone and connect to the same
 
 Step 7: ```npm start``` <br/>
 
-*Disclaimer* - If there are any issues with the app, try installing EXPO XDE for you device(laptop) <a href="https://docs.expo.io/versions/latest/introduction/installation.html "> here <a/> <br/>.
+*Disclaimer* - If there are any issues with the app, try installing EXPO XDE for you device(laptop) <a href="https://docs.expo.io/versions/latest/introduction/installation.html "> here. <a/> <br/>
 
 Step 7.1: Open Expo XDE from your Desktop, and select  **"Open existing project"**. <br/>
 
