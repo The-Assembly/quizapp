@@ -1,4 +1,7 @@
 # Quiz-app
+
+Download orginal game: https://www.minuzapp.com
+
 ## PART 0 - Installing dependencies 
 
 **WINDOWS USER:** <br/>
