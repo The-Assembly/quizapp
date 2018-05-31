@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Animated, PanResponder, Dimensions, LayoutAnimation, UIManager, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Card, Button } from 'react-native-elements'
+import { Card, Button } from 'react-native-elements';
 
 // Screen width to create a swipe threshold
 // After the user  swipes beyond the swipe threshold, we trigger a function
@@ -10,8 +10,7 @@ const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 const SWIPE_OUT_DURATION = 250;
 
 class Deck extends Component {
-
-// This is convention
+  // This is convention
   static defaultProps = {
     onSwipeRight: () => {},
     onSwipeLeft: () => {}
@@ -29,9 +28,9 @@ class Deck extends Component {
           position.setValue({x: gesture.dx , y: gesture.dy})
         },
         onPanResponderRelease: (event, gesture) => {
-          if( gesture.dx > SWIPE_THRESHOLD) {
+          if (gesture.dx > SWIPE_THRESHOLD) {
             this.forceSwipe('right');
-          } else if( gesture.dx < -SWIPE_THRESHOLD) {
+          } else if (gesture.dx < -SWIPE_THRESHOLD) {
             this.forceSwipe('left');
           } else {
           this.resetPosition();
@@ -44,7 +43,7 @@ class Deck extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.data !== this.props.data){
+    if (nextProps.data !== this.props.data) {
       this.setState({ index: 0 });
     }
   }
@@ -57,298 +56,30 @@ class Deck extends Component {
   }
 
   answer(check) {
-    // If it's right  or wrong it'll trigger functions mentioned on the play.js screen , check the properties of the deck tag in play.js
-    const x = check === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
+    // If it's right or wrong it'll trigger functions mentioned on the play.js screen,
+    // check the properties of the deck tag in Play.js
+    const x = check ? SCREEN_WIDTH : -SCREEN_WIDTH;
     Animated.timing(this.state.position, {
       toValue: { x , y: 0 },
       duration: SWIPE_OUT_DURATION
     }).start(() => this.answerRespond(check));
-    }
+  }
 
   answerRespond(check) {
     // Same thing , but by changing index we call the next card
     const { correctAnswer, wrongAnswer, data } = this.props;
     const item = data[this.state.index]
-    check === 'right' ? correctAnswer() : wrongAnswer();
+    check ? correctAnswer() : wrongAnswer();
     this.state.position.setValue({ x: 0, y:0 });
     this.setState({ index: this.state.index + 1 });
-    }
+  }
 
-  optionButton(item) {
-    //Using item in the previous screen we get different button option orders
-    switch(item.order) {
-      case 0 :{
-        return (
-          <View>
-          <Button
-           title={item.A1}
-           large
-           onPress={() => this.answer('right')}
-           textStyle={{ fontWeight: "700" }}
-           buttonStyle={{
-             backgroundColor: "#03A9F4",
-             width: 300,
-             height: 45,
-             borderColor: "transparent",
-             borderWidth: 0,
-             borderRadius: 5,
-           }}
-          />
-          <View style={styles.padding} />
-          <Button
-           title={item.P2}
-           large
-           onPress={()=>this.answer('wrong')}
-           textStyle={{ fontWeight: "700" }}
-           buttonStyle={{
-             backgroundColor: "#03A9F4",
-             width: 300,
-             height: 45,
-             borderColor: "transparent",
-             borderWidth: 0,
-             borderRadius: 5,
-           }}
-          />
-          <View style={styles.padding} />
-          <Button
-           title={item.P3}
-           large
-           onPress={()=>this.answer('wrong')}
-           textStyle={{ fontWeight: "700" }}
-           buttonStyle={{
-           backgroundColor: "#03A9F4",
-           width: 300,
-           height: 45,
-           borderColor: "transparent",
-           borderWidth: 0,
-           borderRadius: 5,
-           }}
-           />
-           </View>
-        );
-      }
-      case 1: {
-        return(
-          <View>
-          <Button
-           title={item.P3}
-           large
-           onPress={()=>this.answer('wrong')}
-           textStyle={{ fontWeight: "700" }}
-           buttonStyle={{
-           backgroundColor: "#03A9F4",
-           width: 300,
-           height: 45,
-           borderColor: "transparent",
-           borderWidth: 0,
-           borderRadius: 5,
-           }}
-           />
-           <View style={styles.padding} />
-           <Button
-            title={item.P2}
-            large
-            onPress={()=>this.answer('wrong')}
-            textStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "#03A9F4",
-              width: 300,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 0,
-              borderRadius: 5,
-            }}
-           />
-           <View style={styles.padding} />
-           <Button
-            title={item.A1}
-            large
-            onPress={() => this.answer('right')}
-            textStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "#03A9F4",
-              width: 300,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 0,
-              borderRadius: 5,
-            }}
-           />
-           </View>
-        );
-      }
-      case 2:{
-        return(
-          <View>
-          <Button
-           title={item.A1}
-           large
-           onPress={() => this.answer('right')}
-           textStyle={{ fontWeight: "700" }}
-           buttonStyle={{
-             backgroundColor: "#03A9F4",
-             width: 300,
-             height: 45,
-             borderColor: "transparent",
-             borderWidth: 0,
-             borderRadius: 5,
-           }}
-          />
-         <View style={styles.padding} />
-         <Button
-          title={item.P3}
-          large
-          onPress={()=>this.answer('wrong')}
-          textStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-            backgroundColor: "#03A9F4",
-            width: 300,
-            height: 45,
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 5,
-          }}
-         />
-         <View style={styles.padding} />
-         <Button
-          title={item.P2}
-          large
-          onPress={()=>this.answer('wrong')}
-          textStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-          backgroundColor: "#03A9F4",
-          width: 300,
-          height: 45,
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 5,
-          }}
-          />
-          </View>
-        );
-      }
-      case 3:{
-        return(
-          <View>
-          <Button
-           title={item.P3}
-           large
-           onPress={() => this.answer('wrong')}
-           textStyle={{ fontWeight: "700" }}
-           buttonStyle={{
-             backgroundColor: "#03A9F4",
-             width: 300,
-             height: 45,
-             borderColor: "transparent",
-             borderWidth: 0,
-             borderRadius: 5,
-           }}
-          />
-         <View style={styles.padding} />
-         <Button
-          title={item.A1}
-          large
-          onPress={()=>this.answer('right')}
-          textStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-            backgroundColor: "#03A9F4",
-            width: 300,
-            height: 45,
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 5,
-          }}
-         />
-         <View style={styles.padding} />
-         <Button
-          title={item.P2}
-          large
-          onPress={()=>this.answer('wrong')}
-          textStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-          backgroundColor: "#03A9F4",
-          width: 300,
-          height: 45,
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 5,
-          }}
-          />
-          </View>
-        );
-      }
-      case 4:{
-        return(
-          <View>
-          <Button
-           title={item.P2}
-           large
-           onPress={() => this.answer('wrong')}
-           textStyle={{ fontWeight: "700" }}
-           buttonStyle={{
-             backgroundColor: "#03A9F4",
-             width: 300,
-             height: 45,
-             borderColor: "transparent",
-             borderWidth: 0,
-             borderRadius: 5,
-           }}
-          />
-         <View style={styles.padding} />
-         <Button
-          title={item.A1}
-          large
-          onPress={()=>this.answer('right')}
-          textStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-            backgroundColor: "#03A9F4",
-            width: 300,
-            height: 45,
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 5,
-          }}
-         />
-         <View style={styles.padding} />
-         <Button
-          title={item.P3}
-          large
-          onPress={()=>this.answer('wrong')}
-          textStyle={{ fontWeight: "700" }}
-          buttonStyle={{
-          backgroundColor: "#03A9F4",
-          width: 300,
-          height: 45,
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 5,
-          }}
-          />
-          </View>
-        );
-      }
-      default:{
-        return(
-        <View>
-        <Button
-         title={item.P2}
-         large
-         onPress={() => this.answer('wrong')}
-         textStyle={{ fontWeight: "700" }}
-         buttonStyle={{
-           backgroundColor: "#03A9F4",
-           width: 300,
-           height: 45,
-           borderColor: "transparent",
-           borderWidth: 0,
-           borderRadius: 5,
-         }}
-        />
-       <View style={styles.padding} />
-       <Button
-        title={item.P3}
+  optionButton(answer) {
+    return (
+      <Button
+        title={answer.text}
         large
-        onPress={()=>this.answer('wrong')}
+        onPress={() => this.answer(answer.correct === true)}
         textStyle={{ fontWeight: "700" }}
         buttonStyle={{
           backgroundColor: "#03A9F4",
@@ -358,39 +89,26 @@ class Deck extends Component {
           borderWidth: 0,
           borderRadius: 5,
         }}
-       />
-       <View style={styles.padding} />
-       <Button
-        title={item.A1}
-        large
-        onPress={()=>this.answer('right')}
-        textStyle={{ fontWeight: "700" }}
-        buttonStyle={{
-        backgroundColor: "#03A9F4",
-        width: 300,
-        height: 45,
-        borderColor: "transparent",
-        borderWidth: 0,
-        borderRadius: 5,
-        }}
-        />
-        </View>
-        );
-      }
-    }
+      />
+    );
   }
 
   renderCard(item) {
     //We use the react native element card component and call our own mixed order option button
-      return (
-        <Card
-          key={item.id}
-          title={item.text}
-        >
-          {this.optionButton(item)}
-        </Card>
-      );
-
+    return (
+      <Card
+        key={item.id}
+        title={item.text}
+      >
+        <View>
+          {this.optionButton(item.answers[0])}
+          <View style={styles.padding} />
+          {this.optionButton(item.answers[1])}
+          <View style={styles.padding} />
+          {this.optionButton(item.answers[2])}
+        </View>
+      </Card>
+    );
   }
 
   renderNoMoreCard() {
@@ -398,18 +116,18 @@ class Deck extends Component {
     return (
       <Card title="We've run out of questions!">
         <Button
-        title="PLAY AGAIN"
-        large
-        textStyle={{ fontWeight: "700" }}
-        onPress={() => Actions.play()}
-        buttonStyle={{
-          backgroundColor: "#41D3B7",
-          width: 300,
-          height: 45,
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 5,
-        }}
+          title="PLAY AGAIN"
+          large
+          textStyle={{ fontWeight: "700" }}
+          onPress={() => Actions.play()}
+          buttonStyle={{
+            backgroundColor: "#41D3B7",
+            width: 300,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 0,
+            borderRadius: 5,
+          }}
         />
         {this.props.clearTimer()}
       </Card>
